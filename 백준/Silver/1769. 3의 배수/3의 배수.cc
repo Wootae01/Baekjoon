@@ -2,6 +2,7 @@
 #include <cstring>
 using namespace std;
 
+//각 자리수의 합을 계산하는 함수
 int sum_digit(char* str) {
 	int sum = 0;
 	for (int i = 0; i < strlen(str); i++) {
@@ -10,7 +11,8 @@ int sum_digit(char* str) {
 	return sum;
 }
 
-void intToString(char* str, int num) {
+//원래 숫자를 각 자리의 숫자의 합으로 바꾸는 함수.
+void changeNum(char* str, int num) {
 	int count = 0;
 	char tmp[1000001];
 	while (num > 0) {
@@ -28,8 +30,11 @@ void intToString(char* str, int num) {
 	
 }
 
+//3의 배수인지 확인하는 함수
 void is_multipl3(char str[], int count) {
 	int sum;
+
+	//한자리 숫자이면
 	if (strlen(str) <= 1) {
 		sum = sum_digit(str);
 		cout << count << endl;
@@ -40,10 +45,12 @@ void is_multipl3(char str[], int count) {
 			cout << "NO" << endl;
 		}
 	}
+
+	//한자리 숫자 이상이면
 	else {
 		sum = sum_digit(str);
 		count++;
-		intToString(str, sum);
+		changeNum(str, sum);
 		is_multipl3(str, count);
 	}
 }
