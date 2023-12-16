@@ -1,40 +1,30 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <queue>
 using namespace std;
 
 int main(void) {
 	int n, k;
+	queue<int> q;
+
 	scanf("%d %d", &n, &k);
-
-	int res[1000];
-	int flag[1000] = { 0, };
-	int cir = 0;
-	int count = 0;
-	while (1) {
-		for (int i = 0; i < k; i++) {
-			if (cir >= n) {
-				cir -= n;
-			}
-			if (flag[cir] == 0) {
-				cir++;
-			}
-			else {
-				cir++;
-				i--;
-			}
-			
-		}
-
-		res[count++] = cir;
-		flag[cir - 1] = 1;
-		if (count >= n)
-			break;
+	for (int i = 1; i <= n; i++) {
+		q.push(i);
 	}
-
 
 	printf("<");
-	for (int i = 0; i < n - 1; i++) {
-		printf("%d, ", res[i]);
+	while (q.size() != 0) {
+		for (int i = 0; i < k - 1; i++) {
+			q.push(q.front());
+			q.pop();
+		}
+		if (q.size() != 1) {
+			printf("%d, ", q.front());
+			q.pop();
+		}
+		else if (q.size() == 1) {
+			printf("%d>", q.front());
+			q.pop();
+		}
 	}
-	printf("%d>", res[n - 1]);
 }
