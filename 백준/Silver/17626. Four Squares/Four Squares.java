@@ -9,13 +9,8 @@ public class Main {
         int[] dp = new int[50001];
 
         dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3;
-        int square = 1;
-        int pre_square = 0;
+
         for(int i = 4; i <= n; i++){
-            if(Math.sqrt(i) % 1 == 0){
-                pre_square = square;
-                square = i;
-            }
 
             dp[i] = Integer.MAX_VALUE;
             for(int j = 1; j * j <= i; j++){
