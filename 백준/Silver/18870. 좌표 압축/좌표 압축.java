@@ -10,35 +10,23 @@ public class Main{
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int[] arr = new int[n];
-        Set<Integer> set = new HashSet();
+        int[] sorted = new int[n];
+        Map<Integer, Integer> map = new HashMap<>();
         for(int i = 0; i < n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
-            set.add(arr[i]);
+            sorted[i] = arr[i];
         }
-
-        Integer[] sorted = set.toArray(new Integer[0]);
+        int rank = 0;
         Arrays.sort(sorted);
+        for(int value : sorted){
+            if(!map.containsKey(value)){
+                map.put(value, rank++);
+            }
+        }
 
         for(int i =0; i < n; i++){
-            bw.write(binarySearch(arr[i], sorted.length, sorted) +" ");
+            bw.write(map.get(arr[i]) + " ");
         }
         bw.flush(); bw.close();
-    }
-
-    static int binarySearch(int value, int n, Integer[] arr) {
-        int start = 0;
-        int end = n;
-        int mid = 0;
-
-        while(start < end){
-            mid = (start + end) / 2;
-            if(arr[mid] >= value){
-                end = mid;
-            } else {
-                start = mid + 1;
-            }
-
-        }
-        return start;
     }
 }
