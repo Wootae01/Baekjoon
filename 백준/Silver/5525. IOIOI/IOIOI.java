@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
-
 
 public class Main {
 
@@ -10,27 +8,39 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
-        char[] p = new char[2*n+1];
-        for(int i = 0; i < 2 * n; i+= 2){
-            p[i] = 'I';
-            p[i+1] = 'O';
-        }
-        p[2*n] = 'I';
-
         int m = Integer.parseInt(br.readLine());
         String S = br.readLine();
 
         int res = 0;
-        for (int i = 0; i <= m - (2*n+1); i++) {
-            if (S.substring(i, i + 2 * n + 1).equals(new String(p))) {
-                res++;
+        int count = 0;
+        char pre = 'I';
+        boolean check = false;
+
+        for (int i = 0; i < m; i++) {
+            char ch = S.charAt(i);
+            if (ch == 'I') {
+                if (pre == 'O' && check) {
+                    if (count == n) {
+                        res++;
+                        count--;
+                    }
+                } else {
+                    count = 0;
+                }
+                pre = 'I';
+                check = true;
+            }
+            else if (ch == 'O') {
+                if (pre == 'I' && check) {
+                    pre = 'O';
+                    count++;
+                } else {
+                    check = false;
+                    count = 0;
+                }
             }
         }
+
         System.out.println(res);
-
-
-
     }
-
-
 }
