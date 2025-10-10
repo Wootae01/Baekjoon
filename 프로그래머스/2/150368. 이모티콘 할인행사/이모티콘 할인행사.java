@@ -1,5 +1,9 @@
 class Solution {
-
+    /** 이모티콘 할인율을 어떻게 하냐에 따라 가입자 수가 달라지는건가 각 이모티콘마다 할인율을 다르게 적용할 수도 있고 
+        고객은 특정 할인율 이상인 모든 제품을 삼 각 이모티콘의 할인율을 정해서 가입자 최대로, 매출 최대로 설정하는 거네 
+        음.. user가 최대 100명 이고 이모티콘도 7개 밖에 안되네? 
+        일단 그냥 브루트포스는 맞는거 같은데 아 할인율이 4개 밖에 없네 중복 순열인가. 중복 순열로 모든 경우의 구하면서 계산해야되네
+    */
     private int bestSubscribers = 0;
     private int bestSales = 0;
 
@@ -9,7 +13,6 @@ class Solution {
         return new int[]{bestSubscribers, bestSales};
     }
 
-    // 할인 조합으로 계산
     private Ans cal(int[][] users, int[] emoticons, int[] discounts) {
         int subscriber = 0;
         int sales = 0;
@@ -37,7 +40,7 @@ class Solution {
         return new Ans(sales, subscriber);
     }
 
-    // depth 자리의 할인율을 정하고 재귀
+    
     private void dfs(int[][] users, int[] emoticons, int[] discount, int depth) {
         if (depth == discount.length) {
             Ans res = cal(users, emoticons, discount);
@@ -50,14 +53,13 @@ class Solution {
             return;
         }
 
-        // 현재 depth 자리만 설정하고 재귀 호출
+        
         for (int d = 10; d <= 40; d += 10) {
             discount[depth] = d;
             dfs(users, emoticons, discount, depth + 1);
         }
     }
 
-    // 결과 담는 클래스 (Solution 내부에 두는 게 편리)
     private static class Ans {
         int sales;
         int subscriber;
